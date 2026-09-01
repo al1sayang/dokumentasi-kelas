@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anggota - TJKT Archive</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        
+        /* --- LATAR BELAKANG PENDARAN CAHAYA PASTEL (MESH GRADIENT) --- */
+        body { 
+            background: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 50%, #dbeafe 100%); 
+            color: #1e293b; 
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Bulatan Cahaya Glowing di Background */
+        body::before, body::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        /* Cahaya Biru Muda di Kiri Atas */
+        body::before {
+            width: 350px;
+            height: 350px;
+            background: #a5f3fc;
+            top: -50px;
+            left: -50px;
+        }
+
+        /* Cahaya Ungu Soft di Kanan Bawah */
+        body::after {
+            width: 400px;
+            height: 400px;
+            background: #c084fc;
+            bottom: -50px;
+            right: -50px;
+        }
+
+        /* --- NAVIGASI --- */
+        nav {
+            background-color: #0f172a;
+            padding: 16px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .logo { color: #ffffff; font-weight: 700; font-size: 1.3rem; letter-spacing: 0.5px; }
+        .logo span { color: #3b82f6; }
+        .nav-links { list-style: none; display: flex; gap: 24px; }
+        .nav-links a { 
+            color: #94a3b8; 
+            text-decoration: none; 
+            font-weight: 500; 
+            font-size: 0.95rem; 
+            transition: all 0.3s ease;
+        }
+        .nav-links a:hover, .nav-links a.active { color: #60a5fa; }
+
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+
+        /* --- HEADER FOTO BERSAMA --- */
+        .header-title {
+            text-align: center;
+            margin-bottom: 40px;
+            background-image: linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.75)), url('foto8.1.jpg.jpeg');
+            background-size: cover;
+            background-position: center;
+            padding: 75px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .header-title h1 { 
+            color: #ffffff; 
+            font-size: 2.2rem; 
+            font-weight: 700; 
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+        .header-title p { 
+            color: #e2e8f0; 
+            font-size: 1rem; 
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+        }
+
+        /* --- GRID ANGGOTA (2 KOLOM BERDERET) --- */
+        .member-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        /* --- KARTU ANGGOTA DENGAN GRADASI PASTEL SOFT --- */
+        .member-card {
+            background: linear-gradient(135deg, rgba(224, 242, 254, 0.95) 0%, rgba(243, 232, 255, 0.95) 100%);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 2px solid #bae6fd;
+            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.18);
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* EFEK HOVER KARTU */
+        .member-card:hover {
+            transform: translateY(-8px);
+            background: linear-gradient(135deg, rgba(186, 230, 253, 0.98) 0%, rgba(233, 213, 255, 0.98) 100%);
+            border-color: #38bdf8;
+            box-shadow: 0 18px 35px rgba(56, 189, 248, 0.3);
+        }
+
+        /* BINGKAI FOTO 5:7 DENGAN LATAR PASTEL MINT */
+        .member-img-wrapper {
+            width: 100%;
+            max-width: 280px;
+            aspect-ratio: 5 / 7;
+            border-radius: 16px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #d1fae5 0%, #e0f2fe 100%);
+            margin-bottom: 16px;
+            border: 3px solid #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .member-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            transition: transform 0.4s ease;
+        }
+
+        .member-card:hover .member-img {
+            transform: scale(1.05);
+        }
+
+        /* KOTAK NAMA */
+        .member-name-box {
+            background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1.05rem;
+            padding: 8px 20px;
+            border-radius: 30px;
+            text-align: center;
+            width: 90%;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+            letter-spacing: 0.3px;
+        }
+
+        /* KOTAK KETERANGAN / BIO */
+        .member-info-box {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 14px;
+            padding: 12px 16px;
+            width: 100%;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #1e293b;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        footer { 
+            text-align: center; 
+            padding: 25px; 
+            background-color: #0f172a; 
+            color: #94a3b8; 
+            font-size: 0.85rem; 
+            margin-top: 60px; 
+        }
+
+        /* Responsive Mobile (Tampilan HP Menjadi 1 Kolom) */
+        @media (max-width: 640px) {
+            .member-grid { grid-template-columns: 1fr; }
+            .header-title { padding: 50px 15px; }
+            .header-title h1 { font-size: 1.7rem; }
+        }
+
+        /* =========================================================
+   KODE ANIMASI KHUSUS UNTUK ANGGOTA.HTML
+   ========================================================= */
+
+/* 1. Animasi Cahaya Latar Belakang Melayang & Bernapas */
+@keyframes floatGlow {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        transform: translate(35px, 45px) scale(1.12);
+        opacity: 0.75;
+    }
+    100% {
+        transform: translate(-25px, 25px) scale(0.95);
+        opacity: 0.55;
+    }
+}
+
+/* Penerapan Animasi pada Cahaya Background */
+body::before, body::after {
+    animation: floatGlow 10s ease-in-out infinite alternate !important;
+}
+
+body::after {
+    animation-delay: -5s !important; /* Jeda animasi agar gerakan tidak berbarengan */
+}
+
+/* 2. Animasi Muncul Terangkat dari Bawah (Fade In Up) */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(35px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Penerapan Animasi Muncul pada Header & Kartu Anggota */
+.header-title {
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.member-card {
+    animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                box-shadow 0.4s ease, 
+                background 0.4s ease, 
+                border-color 0.4s ease !important;
+}
+
+/* 3. Animasi Interaktif Saat Kursor Menempel (Hover Effects) */
+
+/* Kartu Terangkat Membal */
+.member-card:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(56, 189, 248, 0.35);
+}
+
+/* Foto Zoom In Halus */
+.member-img {
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+.member-card:hover .member-img {
+    transform: scale(1.08);
+}
+
+/* Kotak Nama Bergeser Naik & Bercahaya */
+.member-name-box {
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.member-card:hover .member-name-box {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+} 
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">TJKT <span>ARCHIVE</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="kegiatan.html">Informasi Kegiatan</a></li>
+            <li><a href="anggota.html" class="active">Anggota</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        
+        <!-- JUDUL UTAMA -->
+        <div class="header-title">
+            <h1>DAFTAR ANGGOTA KELAS</h1>
+            <p>Mengenal seluruh siswa dan profil keluarga besar TJKT</p>
+        </div>
+
+        <!-- GRID 2 KOLOM ANGGOTA KELAS -->
+        <div class="member-grid">
+
+            <!-- ANGGOTA 1 -->
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="ais.jpg.jpeg" alt="Aisha Alifa Islamidina" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Aisha Alifa Islamidina
+                </div>
+                <div class="member-info-box">
+                    Bandung, 27 Maret 2010
+                </div>
+            </div>
+
+            <!-- ANGGOTA 2 -->
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="alim.jpg.jpeg" alt="Alim Bandaru Mulya" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Alim Bandaru Mulya
+                </div>
+                <div class="member-info-box">
+                    Klaten, 27 Agustus 2008
+                </div>
+            </div>
+
+            <!-- ANGGOTA 3 -->
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="alfin.png.jepg" alt="Alvinza Ghany Adnanirwan" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Alvinza Ghany Adnanirwan
+                </div>
+                <div class="member-info-box">
+                  Klaten, 18 Desember 2008
+                </div>
+            </div>
+
+             <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="yoga.jpg.jpeg" alt="Andika Yoga Pratama" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Andika Yoga Pratama
+                </div>
+                <div class="member-info-box">
+                    Klaten, 8 Oktober 2008
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="nisa.jpg.jpeg" alt="Anisa Sekar Wijayanti" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Anisa Sekar Wijayanti
+                </div>
+                <div class="member-info-box">
+                    Klaten, 8 Agustus 2008
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="aourel.jpg.jpeg" alt="Andika Yoga Pratama" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Aourel Nur azhura
+                </div>
+                <div class="member-info-box">
+                    Klaten, 7 Desember 2008
+                </div>
+            </div>
+
+             <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="avril.jpg.jpeg" alt="Avrilia Putri Sabila" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Avrilia Putri Sabila
+                </div>
+                <div class="member-info-box">
+                    Klaten, 15 April 2009
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="ayu.jpg.jpeg" alt="Ayu Nur Hidayati" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Ayu Nur Hidayat
+                </div>
+                <div class="member-info-box">
+                    Klaten, 3 Mei 2009
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="canip.jpg.jpeg" alt="Chanif Sehti Hilal" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Chanif Sehti Hilal
+                </div>
+                <div class="member-info-box">
+                    Klaten, 1 Januari 2009
+                </div>
+            </div>
+
+             <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="cyril.jpg.jpeg" alt=" Cyril Dwi Noviyanto" class="member-img">
+                </div>
+                <div class="member-name-box">
+                     Cyril Dwi Noviyanto 
+                </div>
+                <div class="member-info-box">
+                    Klaten, 5 November 2008
+                </div>
+            </div>
+
+             <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="zahro.jpg.jpeg" alt="Fatimah Zahro" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Fatimah Zahro
+                </div>
+                <div class="member-info-box">
+                    Klaten, 24 Juli 2009
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="ardian.jpg.jpeg" alt="Fauzan Ardiansyah" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Fauzan Ardian
+                </div>
+                <div class="member-info-box">
+                    Klaten, 2 Februari 2009
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="azizan.jpg.jpeg" alt="Fauzan Azizan Efendi" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Fauzan Azizan Efendi
+                </div>
+                <div class="member-info-box">
+                    Klaten, 29 Juni 2009
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="indah.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Indah Maulidia
+                </div>
+                <div class="member-info-box">
+                    Klaten, 28 Februari 2009
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="nana.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Isnaini Wahyu Nurjanah
+                </div>
+                <div class="member-info-box">
+                    Klaten, 28 Februari 2009
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="irfan.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Irfan Agung Pratama
+                </div>
+                <div class="member-info-box">
+                    Klaten, 9 Maret 2008
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="julia.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Julia Kurnia Wati 
+                </div>
+                <div class="member-info-box">
+                    Klaten, 17 Juli 2009
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="nathan.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Kenathan Dzaky 
+                </div>
+                <div class="member-info-box">
+                    Klaten, 8 November 2008
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="kevin.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Kevin Zulfikar Aqib Syaifudin  
+                </div>
+                <div class="member-info-box">
+                    Klaten, 26 November 2008
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="sasa.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Khairunnisa Ramadhani  
+                </div>
+                <div class="member-info-box">
+                    Klaten, 2 September 2008
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="khansa.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Khansa Nuza Maritza  
+                </div>
+                <div class="member-info-box">
+                    Klaten, 6 September 2009
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="lintang.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Lintang Dea Elsaputri  
+                </div>
+                <div class="member-info-box">
+                    Klaten, 14 Agustus 2008
+                </div>
+            </div>
+
+
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="marlena.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Marlena Eka Nuraini 
+                </div>
+                <div class="member-info-box">
+                    Klaten, 10 Maret 2009
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="jojo.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Muh. Satrihatmojo  
+                </div>
+                <div class="member-info-box">
+                    Klaten, 6 Mei 2009
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="muklis.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Muklis Drajat Wiyoto 
+                </div>
+                <div class="member-info-box">
+                    Klaten, 21 Februari 2009
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="nabila.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Nabila Alya Mukhbita Firni
+                </div>
+                <div class="member-info-box">
+                    Pekanbaru, 10 November 2009
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="dipa.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Nadhifah Ramadhani
+                </div>
+                <div class="member-info-box">
+                    Boyolali, 26 Agustus 2009
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="tania.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Novitania Ayudya Permata
+                </div>
+                <div class="member-info-box">
+                    Klaten, 12 November 2008
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="nurul.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Nurul Azizah Handayani
+                </div>
+                <div class="member-info-box">
+                    Selayar, 22 Oktober 2009
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="risma.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Risma Juni Alisa
+                </div>
+                <div class="member-info-box">
+                    Klaten, 5 Juni 2009
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="rizka.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Rizka Alfiani Putri
+                </div>
+                <div class="member-info-box">
+                    Klaten, 20 Juni 2009
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="rizka.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Rizka Alfiani Putri.
+                </div>
+                <div class="member-info-box">
+                    Klaten, 20 Juni 2009
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="rizka.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Rizka Alfiani Putri.
+                </div>
+                <div class="member-info-box">
+                    Klaten, 20 Juni 2009
+                </div>
+            </div>
+
+            <div class="member-card">
+                <div class="member-img-wrapper">
+                    <img src="via.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                </div>
+                <div class="member-name-box">
+                    Vivia Eva Cahaya
+                </div>
+                <div class="member-info-box">
+                    Klaten, 12 April 2009
+                </div>
+            </div>
+
+
+               
+
+
+            <!-- Tambahkan blok <div class="member-card"> ... </div> berikutnya sampai siswa ke-34 -->
+
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 TJKT Archive. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informasi Kegiatan - TJKT Archive</title>
+    <!-- Import Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Latar Belakang Gradient Soft Polos (Tanpa Foto) */
+        body {
+            background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 50%, #f1f5f9 100%);
+            color: #1e293b;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* --- MENU NAVIGASI --- */
+        nav {
+            background-color: #0f172a;
+            padding: 16px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .logo {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1.3rem;
+            letter-spacing: 0.5px;
+        }
+
+        .logo span {
+            color: #3b82f6;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #60a5fa;
+            border-bottom: 2px solid #60a5fa;
+        }
+
+        /* --- CONTAINER UTAMA --- */
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 35px;
+            color: #0f172a;
+            font-size: 2rem;
+            font-weight: 700;
+            background: #ffffff;
+            padding: 18px 25px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.04);
+            border: 1px solid #e2e8f0;
+        }
+
+        /* --- CONTAINER KARTU KELAS --- */
+        .class-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        /* --- KARTU KELAS DENGAN ANIMASI TEKAN (CLICK) --- */
+        .class-card {
+            border-radius: 20px;
+            padding: 35px 20px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 2.2rem;
+            font-weight: 700;
+            display: block;
+            position: relative;
+            overflow: hidden;
+            user-select: none;
+            /* Transisi Halus untuk Efek Hover & Klik */
+            transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), 
+                        box-shadow 0.3s ease, 
+                        background 0.3s ease;
+        }
+
+        /* 🟢 ANIMASI SAAT KARTU DIPENCET / DIKLIK (ACTIVE) */
+        .class-card:active {
+            transform: scale(0.96) translateY(2px) !important; /* Efek Meredup/Tertekan ke Bawah */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+        }
+
+        /* 1. KELAS X - Soft Ice Blue */
+        .class-card.kelas-x {
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+            color: #0369a1;
+            border: 2px solid #93c5fd;
+            box-shadow: 0 8px 20px rgba(56, 189, 248, 0.15);
+        }
+
+        .class-card.kelas-x:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, #bae6fd 0%, #7dd3fc 100%);
+            box-shadow: 0 15px 30px rgba(56, 189, 248, 0.3);
+            border-color: #38bdf8;
+        }
+
+        /* 2. KELAS XI - Soft Mint Green */
+        .class-card.kelas-xi {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            color: #047857;
+            border: 2px solid #6ee7b7;
+            box-shadow: 0 8px 20px rgba(52, 211, 153, 0.15);
+        }
+
+        .class-card.kelas-xi:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, #a7f3d0 0%, #6ee7b7 100%);
+            box-shadow: 0 15px 30px rgba(52, 211, 153, 0.3);
+            border-color: #34d399;
+        }
+
+        /* 3. KELAS XII - Soft Lavender Purple */
+        .class-card.kelas-xii {
+            background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
+            color: #6b21a8;
+            border: 2px solid #c084fc;
+            box-shadow: 0 8px 20px rgba(192, 132, 252, 0.15);
+        }
+
+        .class-card.kelas-xii:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, #e9d5ff 0%, #d8b4fe 100%);
+            box-shadow: 0 15px 30px rgba(192, 132, 252, 0.3);
+            border-color: #a855f7;
+        }
+
+        /* EFLEK GELOMBANG (RIPPLE EFFECT) SAAT DIKLIK */
+        .ripple {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple-animation 0.6s linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 25px;
+            background-color: #0f172a;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MENU NAVIGASI -->
+    <nav>
+    <div class="logo">TJKT <span>ARCHIVE</span></div>
+    <ul class="nav-links">
+        <li><a href="index.html">Beranda</a></li>
+        <li><a href="kegiatan.html">Informasi Kegiatan</a></li>
+        <li><a href="anggota.html">Anggota</a></li>
+    </ul>
+</nav>
+
+    <div class="container">
+        <h1 class="page-title">Pilih Jenjang Kelas</h1>
+
+        <!-- KARTU PILIHAN KELAS -->
+        <div class="class-container">
+            <a href="kelas-x.html" class="class-card kelas-x">
+                KELAS X
+            </a>
+            
+            <a href="kelas-xi.html" class="class-card kelas-xi">
+                KELAS XI
+            </a>
+            
+            <a href="kelas-xii.html" class="class-card kelas-xii">
+                KELAS XII
+            </a>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 TJKT Archive. All Rights Reserved.</p>
+    </footer>
+
+    <!-- SCRIPT UNTUK EFEK GELOMBANG (RIPPLE) SAAT TOMBOL DIKLIK -->
+    <script>
+        document.querySelectorAll('.class-card').forEach(card => {
+            card.addEventListener('click', function (e) {
+                let x = e.clientX - e.target.getBoundingClientRect().left;
+                let y = e.clientY - e.target.getBoundingClientRect().top;
+
+                let ripples = document.createElement('span');
+                ripples.classList.add('ripple');
+                ripples.style.left = x + 'px';
+                ripples.style.top = y + 'px';
+                this.appendChild(ripples);
+
+                setTimeout(() => {
+                    ripples.remove();
+                }, 600);
+            });
+        });
+    </script>
+
+</body>
+</html>

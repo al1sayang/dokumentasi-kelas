@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumentasi Kelas XI - TJKT Archive</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        
+        /* Latar Belakang Gradient Soft Mint Polos */
+        body { 
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 50%, #f0fdf4 100%); 
+            color: #1e293b; 
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* --- NAVIGASI MODERN --- */
+        nav {
+            background-color: #0f172a;
+            padding: 16px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .logo { color: #ffffff; font-weight: 700; font-size: 1.3rem; letter-spacing: 0.5px; }
+        .logo span { color: #3b82f6; }
+        .nav-links { list-style: none; display: flex; gap: 24px; }
+        .nav-links a { 
+            color: #94a3b8; 
+            text-decoration: none; 
+            font-weight: 500; 
+            font-size: 0.95rem; 
+            transition: all 0.3s ease;
+        }
+        .nav-links a:hover, .nav-links a.active { color: #34d399; }
+
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+        
+        /* --- TOMBOL KEMBALI SOFT MINT --- */
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 25px;
+            padding: 10px 22px;
+            background: rgba(209, 250, 229, 0.9);
+            color: #047857;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: 30px;
+            border: 1px solid #6ee7b7;
+            box-shadow: 0 4px 12px rgba(52, 211, 153, 0.15);
+            transition: all 0.3s ease;
+        }
+        .btn-back:hover { 
+            background: #059669; 
+            color: #ffffff; 
+            transform: translateX(-5px);
+            box-shadow: 0 6px 18px rgba(5, 150, 105, 0.3);
+            border-color: #059669;
+        }
+
+        /* --- HEADER TITLE SOFT MINT --- */
+        .header-title {
+            text-align: center;
+            margin-bottom: 35px;
+            background: linear-gradient(135deg, rgba(209, 250, 229, 0.95) 0%, rgba(167, 243, 208, 0.95) 100%);
+            backdrop-filter: blur(10px);
+            padding: 32px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(52, 211, 153, 0.15);
+            border: 1px solid rgba(255,255,255,0.8);
+        }
+        .header-title h1 { 
+            color: #047857; 
+            font-size: 2rem; 
+            font-weight: 700;
+            margin-bottom: 8px; 
+            letter-spacing: -0.5px;
+        }
+        .header-title p { color: #064e3b; font-size: 0.95rem; }
+
+        /* --- GRID GALLERY (2 KOLOM RAPI) --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        /* --- CARD STYLE & HOVER ANIMATION --- */
+        .gallery-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(52, 211, 153, 0.22);
+            border-color: #6ee7b7;
+        }
+
+        /* Container Foto + Efek Zoom Smooth */
+        .card-img-wrapper {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            background-color: #e2e8f0;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-card:hover .card-img {
+            transform: scale(1.08);
+        }
+
+        /* Tag Nomor Foto Soft Mint */
+        .card-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(4, 120, 87, 0.85);
+            backdrop-filter: blur(6px);
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .card-body { padding: 22px; text-align: left; flex-grow: 1; }
+        .card-body h3 { font-size: 1.1rem; color: #065f46; margin-bottom: 8px; font-weight: 600; }
+        .card-body p { font-size: 0.88rem; color: #334155; line-height: 1.5; }
+
+        /* --- FOOTER --- */
+        footer { 
+            text-align: center; 
+            padding: 25px; 
+            background-color: #0f172a; 
+            color: #94a3b8; 
+            font-size: 0.85rem; 
+            margin-top: 60px; 
+        }
+
+        /* Responsive Mobile */
+        @media (max-width: 640px) {
+            .gallery-grid { grid-template-columns: 1fr; }
+            .header-title h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+    <div class="logo">TJKT <span>ARCHIVE</span></div>
+    <ul class="nav-links">
+        <li><a href="index.html">Beranda</a></li>
+        <li><a href="kegiatan.html">Informasi Kegiatan</a></li>
+        <li><a href="anggota.html">Anggota</a></li>
+    </ul>
+</nav>
+
+    <div class="container">
+        <a href="kegiatan.html" class="btn-back">← Kembali ke Pilihan Kelas</a>
+
+        <div class="header-title">
+            <h1>📂 ARSIP KEGIATAN KELAS XI</h1>
+            <p>Eksplorasi ilmu, pengalaman baru, dan cerita seru perjalanan di jenjang kelas XI.</p>
+        </div>
+
+        <div class="gallery-grid">
+            
+            <!-- FOTO 1 -->
+            <div class="gallery-card">
+                <div class="card-img-wrapper">
+                    <img src="foto1.1.jpg.jpeg" alt="Belajar di Luar Kelas" class="card-img">
+                    <span class="card-badge">Dokumentasi #01</span>
+                </div>
+                <div class="card-body">
+                    <h3>🌿 Belajar Seru di Luar Ruangan</h3>
+                    <p>Suasana belajar baru yang menyegarkan di luar kelas. Mengasah pemahaman sambil menikmati udara segar dan suasana sekolah yang asri.</p>
+                </div>
+            </div>
+
+            <!-- FOTO 2 -->
+            <div class="gallery-card">
+                <div class="card-img-wrapper">
+                    <img src="foto2.1.jpg.jpeg" alt="Aksi Peduli Lingkungan Sekolah" class="card-img">
+                    <span class="card-badge">Dokumentasi #02</span>
+                </div>
+                <div class="card-body">
+                    <h3>🌱 Aksi Peduli Lingkungan Sekolah</h3>
+                    <p>Gotong royong dan bahu-membahu merapikan serta membersihkan lahan sekolah. Menjaga kebersihan bersama demi kenyamanan belajar.</p>
+                </div>
+            </div>
+
+            <!-- FOTO 3 -->
+            <div class="gallery-card">
+                <div class="card-img-wrapper">
+                    <img src="foto3.1.jpg.jpeg" alt="Puncak Kemeriahan HUT Sekolah" class="card-img">
+                    <span class="card-badge">Dokumentasi #03</span>
+                </div>
+                <div class="card-body">
+                    <h3>🎈 Puncak Kemeriahan HUT Sekolah</h3>
+                    <p>Foto bersama penuh keceriaan saat merayakan hari ulang tahun sekolah. Momen kebersamaan yang selalu ditunggu-tunggu!</p>
+                </div>
+            </div>
+
+            <!-- FOTO 4 -->
+            <div class="gallery-card">
+                <div class="card-img-wrapper">
+                    <img src="foto4.1.jpg.jpeg" alt="Semangat Hari Olahraga Nasional" class="card-img">
+                    <span class="card-badge">Dokumentasi #04</span>
+                </div>
+                <div class="card-body">
+                    <h3>🏃‍♂️ Semangat Hari Olahraga Nasional</h3>
+                    <p>Berpartisipasi aktif dalam peringatan HAORNAS bersama kelas lain. Bergerak bersama, membakar semangat, dan menjaga pola hidup sehat!</p>
+                </div>
+            </div>
+
+            <!-- FOTO 5 -->
+            <div class="gallery-card">
+                <div class="card-img-wrapper">
+                    <img src="foto5.1.jpg.jpeg" alt="Kekompakan Tim Classmeet" class="card-img">
+                    <span class="card-badge">Dokumentasi #05</span>
+                </div>
+                <div class="card-body">
+                    <h3>🏆 Kekompakan Tim Classmeet</h3>
+                    <p>Potret kebersamaan dan sportsivitas saat ajang classmeet. Menjalin keakraban sambil memberikan dukungan terbaik untuk kelas tercinta.</p>
+                </div>
+            </div>
+
+            <!-- FOTO 6 -->
+            <div class="gallery-card">
+                <div class="card-img-wrapper">
+                    <img src="foto6.1.jpg.jpeg" alt="Sesi Saling Berbagi Bersama Guru Tamu" class="card-img">
+                    <span class="card-badge">Dokumentasi #06</span>
+                </div>
+                <div class="card-body">
+                    <h3>💼 Sesi Belajar Spesial Bersama "Guru Tamu"</h3>
+                    <p>Momen berharga menyerap ilmu, wawasan dunia industri, dan pengalaman langsung dari praktisi hebat yang hadir di kelas.</p>
+                </div>
+            </div>
+
+            <!-- FOTO 7 -->
+            <div class="gallery-card">
+                <div class="card-img-wrapper">
+                    <img src="foto7.1.jpgjpeg.jpeg" alt="Upacara & Momen Penerimaan Rapot" class="card-img">
+                    <span class="card-badge">Dokumentasi #07</span>
+                </div>
+                <div class="card-body">
+                    <h3>📜 Upacara Khidmat & Penerimaan Rapot</h3>
+                    <p>Prosesi upacara bendera dilanjutkan dengan momen puncak hasil perjuangan belajar selama satu semester. Langkah kecil menuju masa depan!</p>
+                </div>
+            </div>
+
+            <!-- FOTO 8 -->
+            <div class="gallery-card">
+                <div class="card-img-wrapper">
+                    <img src="foto8.1.jpg.jpeg" alt="Hangatnya Buka Puasa Bersama" class="card-img">
+                    <span class="card-badge">Dokumentasi #08</span>
+                </div>
+                <div class="card-body">
+                    <h3>🌙 Hangatnya Buka Puasa Bersama (Bukber)</h3>
+                    <p>Tradisi tahunan mempererat silaturahmi di bulan suci Ramadhan. Momen manis menikmati hidangan dan cerita hangat di luar jam sekolah.</p>
+                </div>
+            </div>
+
+            <!-- FOTO 9 -->
+            <div class="gallery-card">
+                <div class="card-img-wrapper">
+                    <img src="foto9.1.jpg.jpeg" alt="Momen Haru Perpisahan Kakak PPG" class="card-img">
+                    <span class="card-badge">Dokumentasi #09</span>
+                </div>
+                <div class="card-body">
+                    <h3>💐 Momen Haru Perpisahan Kakak PPG</h3>
+                    <p>Foto kenang-kenangan dan ungkapan terima kasih mendalam atas bimbingan serta kehangatan dari kakak-kakak mahasiswa PPG selama mengajar.</p>
+                </div>
+            </div>
+
+            <!-- FOTO 10 -->
+            <div class="gallery-card">
+                <div class="card-img-wrapper">
+                    <img src="foto10.1.jpg.jpeg" alt="Peringatan Hari Pendidikan Nasional" class="card-img">
+                    <span class="card-badge">Dokumentasi #10</span>
+                </div>
+                <div class="card-body">
+                    <h3>🎓 Khidmat Peringatan Hari Pendidikan Nasional</h3>
+                    <p>Mengikuti upacara Hardiknas dengan rapi dan penuh khidmat. Mengingat kembali pentingnya semangat belajar dan menuntut ilmu.</p>
+                </div>
+            </div>
+
+            <!-- FOTO 11 -->
+            <div class="gallery-card">
+                <div class="card-img-wrapper">
+                    <img src="foto11.1.jpg.jpeg" alt="Pentas Seni & Projek Drama" class="card-img">
+                    <span class="card-badge">Dokumentasi #11</span>
+                </div>
+                <div class="card-body">
+                    <h3>🎭 Unjuk Bakat Projek Drama Bahasa Indonesia</h3>
+                    <p>Aksi panggung penuh totalitas, ekspresi, dan kerja sama tim dalam menampilkan lakon drama terbaik untuk tugas Bahasa Indonesia.</p>
+                </div>
+            </div>
+
+            <!-- FOTO 12 -->
+            <div class="gallery-card">
+                <div class="card-img-wrapper">
+                    <img src="foto12.1.jpg.jpeg" alt="Acara Bakar-Bakar Akhir Semester" class="card-img">
+                    <span class="card-badge">Dokumentasi #12</span>
+                </div>
+                <div class="card-body">
+                    <h3>🔥 Pesta Bakar-Bakar & Penutup Semester</h3>
+                    <p>Malam keakraban melepas penat ujian semester dengan gurauan, aroma bakaran lezat, dan kehangatan kebersamaan satu kelas!</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 TJKT Archive. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TJKT Archive - Dokumentasi Kegiatan Kelas</title>
+    <!-- Import Google Fonts: Poppins & Dancing Script -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            color: #1e293b;
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+            background-color: #0f172a;
+        }
+
+        /* --- BACKGROUND SLIDESHOW BERGANTI & BLUR --- */
+        .bg-slideshow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background-size: cover;
+            background-position: center;
+            filter: blur(8px) brightness(0.65);
+            transform: scale(1.05);
+            transition: background-image 1.5s ease-in-out;
+        }
+
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: rgba(15, 23, 42, 0.35);
+        }
+
+        /* --- MENU NAVIGASI (ATAS) --- */
+        nav {
+            background-color: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 16px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1.3rem;
+            letter-spacing: 0.5px;
+        }
+
+        .logo span {
+            color: #3b82f6;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #60a5fa;
+        }
+
+        /* --- CONTAINER UTAMA --- */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* --- HERO SECTION (JUDUL UTAMA) --- */
+        .hero-section {
+            text-align: center;
+            padding: 50px 25px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.9) 0%, rgba(79, 70, 229, 0.9) 50%, rgba(124, 58, 237, 0.9) 100%);
+            backdrop-filter: blur(10px);
+            color: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            margin-bottom: 35px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .hero-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.3;
+            color: #ffffff;
+            text-shadow: 2px 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .hero-title .sup-badge {
+            font-size: 1.8rem;
+            vertical-align: super;
+            color: #608ef0;
+            font-weight: 700;
+            margin-left: 2px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.05rem;
+            font-weight: 300;
+            opacity: 0.95;
+            letter-spacing: 0.3px;
+        }
+
+        /* --- SECTION 1: TUJUAN --- */
+        .purpose-section {
+            background: rgba(224, 242, 254, 0.92);
+            backdrop-filter: blur(12px);
+            padding: 32px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            margin-bottom: 30px;
+            color: #0f172a;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .purpose-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(56, 189, 248, 0.25);
+        }
+
+        .purpose-section h2 {
+            color: #1e3a8a;
+            margin-bottom: 18px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+        }
+
+        .purpose-list {
+            padding-left: 20px;
+        }
+
+        .purpose-list li {
+            margin-bottom: 12px;
+            color: #1e293b;
+            font-size: 0.98rem;
+        }
+
+        .purpose-list li strong {
+            color: #2563eb;
+        }
+
+        /* --- SECTION 2: KONTAK --- */
+        .contact-section {
+            background: rgba(243, 232, 255, 0.92);
+            backdrop-filter: blur(12px);
+            padding: 32px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            margin-bottom: 30px;
+            color: #0f172a;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contact-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(168, 85, 247, 0.25);
+        }
+
+        .contact-section h2 {
+            color: #581c87;
+            margin-bottom: 18px;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        /* KARTU DI DALAM KONTAK (DENGAN FOTO DI KANAN) */
+        .contact-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(8px);
+            padding: 24px;
+            border-radius: 16px;
+            border-left: 5px solid #a855f7;
+            border-top: 1px solid rgba(255, 255, 255, 0.8);
+            border-right: 1px solid rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+            
+            /* Layout 2 Kolom (Teks Kiri & Foto Kanan) */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+            color: #334155;
+            font-size: 0.98rem;
+        }
+
+        .contact-info p:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-info strong {
+            color: #581c87;
+        }
+
+        /* BINGKAI FOTO PROFIL KECIL */
+        .contact-avatar-wrapper {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%; /* Membuat foto berbentuk lingkaran anggun */
+            overflow: hidden;
+            border: 3px solid #ffffff;
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+            flex-shrink: 0; /* Mencegah foto menciut */
+            background: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 100%);
+            transition: transform 0.3s ease;
+        }
+
+        .contact-card:hover .contact-avatar-wrapper {
+            transform: scale(1.05); /* Efek zoom halus saat kartu di-hover */
+        }
+
+        .contact-avatar {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 25px;
+            background-color: rgba(15, 23, 42, 0.95);
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-top: 50px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Responsive Mobile */
+        @media (max-width: 640px) {
+            .hero-title { font-size: 2.2rem; }
+            .purpose-section, .contact-section { padding: 22px; }
+            
+            /* Pada layar HP, foto akan berada di atas/tengah biodata secara rapi */
+            .contact-card {
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+            .contact-avatar-wrapper {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ELEMEN SLIDESHOW LATAR BELAKANG -->
+    <div class="bg-slideshow" id="bgSlideshow"></div>
+    <div class="bg-overlay"></div>
+
+    <!-- MENU ATAS (HALAMAN & NAVIGASI) -->
+    <nav>
+        <div class="logo">TJKT <span>ARCHIVE</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Beranda</a></li>
+            <li><a href="kegiatan.html">Informasi Kegiatan</a></li>
+            <li><a href="anggota.html">Anggota</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+
+        <!-- JUDUL UTAMA (HERO SECTION) DENGAN ANGKAT 2 SUPERSCRIPT -->
+        <section id="beranda" class="hero-section">
+            <h1 class="hero-title">TJKT<sup class="sup-badge">wo</sup> Archive: Website Dokumentasi Perjalanan Tiga Tahun Kelas X, XI, dan XII</h1>
+            <p class="hero-subtitle">Mengabadikan Setiap Momen, Pembelajaran, dan Kenangan Selama di TJKT</p>
+        </section>
+
+        <!-- TUJUAN PEMBUATAN WEB -->
+        <section class="purpose-section">
+            <h2>Tujuan Pembuatan Website</h2>
+            <ul class="purpose-list">
+                <li><strong>Arsip Digital:</strong> Menyimpan seluruh dokumentasi kegiatan kelas agar tersusun rapi.</li>
+                <li><strong>Pusat Informasi:</strong> Memudahkan siswa dan guru dalam mengakses riwayat kegiatan kelas X, XI, hingga XII.</li>
+                <li><strong>Galeri Kenangan:</strong> Menjadi wadah apresiasi untuk mendokumentasikan kebersamaan dan perjalanan belajar seluruh siswa TJKT.</li>
+                <li><strong>Pengembangan Keterampilan:</strong> Sebagai wujud penerapan praktis keterampilan RPL (Rekayasa Perangkat Lunak) dan pemrograman web.</li>
+            </ul>
+        </section>
+
+        <!-- KONTAK PEMBUAT (SAYA) -->
+        <section id="kontak" class="contact-section">
+            <h2>Kontak Pembuat Website</h2>
+            <div class="contact-card">
+                <div class="contact-info">
+                    <p><strong>Nama Pembuat:</strong> Risma Juni Alisa</p>
+                    <p><strong>Kelas / Jurusan:</strong> XII TJKT 2</p>
+                    <p><strong>Peran:</strong> Web Developer & Admin Dokumentasi</p>
+                    <p><strong>Email:</strong> rismaalisa84@gmail.com</p>
+                </div>
+                <!-- FOTO PROFIL KECIL DI SEBELAH KANAN -->
+                <div class="contact-avatar-wrapper">
+                    <img src="alisa.jpg.jpeg" alt="Foto Pembuat Website - Risma Juni Alisa" class="contact-avatar">
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 TJKT Archive. All Rights Reserved.</p>
+    </footer>
+
+    <!-- SCRIPT UNTUK MEMUTAR FOTO LATAR BELAKANG OTOMATIS -->
+    <script>
+        // DAFTAR FOTO YANG AKAN BERGANTI DI BACKGROUND
+        const images = [
+            'foto1.jpg.jpeg',
+            'foto2.jpg.jpeg',
+            'foto3.jpg.jpeg',
+            'foto4.jpg.jpeg',
+            'foto5.jpg.jpeg',
+            'foto6.jpg.jpeg',
+            'foto7.jpg.jpeg'
+        ];
+
+        let currentIndex = 0;
+        const bgElement = document.getElementById('bgSlideshow');
+
+        function changeBackground() {
+            bgElement.style.backgroundImage = `url('${images[currentIndex]}')`;
+            currentIndex = (currentIndex + 1) % images.length;
+        }
+
+        // Tampilkan gambar pertama secara langsung
+        changeBackground();
+
+        // Ganti gambar latar belakang setiap 4000 milidetik (4 detik)
+        setInterval(changeBackground, 4000);
+    </script>
+
+</body>
+</html>
