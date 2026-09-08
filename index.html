@@ -4,48 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TJKT Archive - Dokumentasi Kegiatan Kelas</title>
-    <!-- Import Google Fonts: Poppins & Dancing Script -->
+    <!-- Import Google Fonts & Font Awesome (Untuk Ikon Sosmed) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
     <style>
-        /* Styling Tombol Sosial Media */
-.social-links {
-    margin-top: 15px;
-    display: flex;
-    gap: 12px;
-}
-
-.social-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    border-radius: 20px;
-    text-decoration: none;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: white;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-/* Warna Gradient Instagram */
-.social-btn.instagram {
-    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-}
-
-/* Warna Khas TikTok */
-.social-btn.tiktok {
-    background: #000000;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.social-btn:hover {
-    transform: translateY(-3px) scale(1.03);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
-}
         * {
             margin: 0;
             padding: 0;
@@ -137,7 +102,7 @@
             padding: 0 20px;
         }
 
-        /* --- HERO SECTION (JUDUL UTAMA) --- */
+        /* --- HERO SECTION --- */
         .hero-section {
             text-align: center;
             padding: 50px 25px;
@@ -243,7 +208,6 @@
             font-weight: 700;
         }
 
-        /* KARTU DI DALAM KONTAK (DENGAN FOTO DI KANAN) */
         .contact-card {
             background: rgba(255, 255, 255, 0.65);
             backdrop-filter: blur(8px);
@@ -253,8 +217,10 @@
             border-top: 1px solid rgba(255, 255, 255, 0.8);
             border-right: 1px solid rgba(255, 255, 255, 0.8);
             border-bottom: 1px solid rgba(255, 255, 255, 0.8);
-            
-            /* Layout 2 Kolom (Teks Kiri & Foto Kanan) */
+        }
+
+        /* TATA LETAK ATAS (BIODATA + FOTO BUNDAR) */
+        .contact-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -266,44 +232,87 @@
         }
 
         .contact-info p {
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             color: #334155;
             font-size: 0.98rem;
-        }
-
-        .contact-info p:last-child {
-            margin-bottom: 0;
         }
 
         .contact-info strong {
             color: #581c87;
         }
 
-        /* BINGKAI FOTO PROFIL KECIL */
+        /* BINGKAI FOTO BUNDAR */
         .contact-avatar-wrapper {
             width: 110px;
             height: 110px;
-            border-radius: 50%; /* Membuat foto berbentuk lingkaran anggun */
+            border-radius: 50%;
             overflow: hidden;
             border: 3px solid #ffffff;
             box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
-            flex-shrink: 0; /* Mencegah foto menciut */
+            flex-shrink: 0;
             background: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 100%);
             transition: transform 0.3s ease;
         }
 
         .contact-card:hover .contact-avatar-wrapper {
-            transform: scale(1.05); /* Efek zoom halus saat kartu di-hover */
+            transform: scale(1.05);
         }
 
         .contact-avatar {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: top center;
+            object-position: center bottom;
         }
 
-        /* --- FOOTER --- */
+        /* --- BAGIAN MEDIA SOSIAL DI BAWAH GARIS PUTUS-PUTUS --- */
+        .social-section {
+            margin-top: 18px;
+            padding-top: 14px;
+            border-top: 1px dashed rgba(168, 85, 247, 0.3);
+        }
+
+        .social-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #581c87;
+            margin-bottom: 8px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+        }
+
+        .social-btn.instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+
+        .social-btn.tiktok {
+            background: #000000;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* FOOTER */
         footer {
             text-align: center;
             padding: 25px;
@@ -314,19 +323,15 @@
             border-top: 1px solid rgba(255,255,255,0.05);
         }
 
-        /* Responsive Mobile */
         @media (max-width: 640px) {
             .hero-title { font-size: 2.2rem; }
             .purpose-section, .contact-section { padding: 22px; }
-            
-            /* Pada layar HP, foto akan berada di atas/tengah biodata secara rapi */
-            .contact-card {
+            .contact-top {
                 flex-direction: column-reverse;
                 text-align: center;
             }
-            .contact-avatar-wrapper {
-                width: 100px;
-                height: 100px;
+            .social-links {
+                justify-content: center;
             }
         }
     </style>
@@ -337,7 +342,7 @@
     <div class="bg-slideshow" id="bgSlideshow"></div>
     <div class="bg-overlay"></div>
 
-    <!-- MENU ATAS (HALAMAN & NAVIGASI) -->
+    <!-- MENU ATAS -->
     <nav>
         <div class="logo">TJKT <span>ARCHIVE</span></div>
         <ul class="nav-links">
@@ -349,7 +354,7 @@
 
     <div class="container">
 
-        <!-- JUDUL UTAMA (HERO SECTION) DENGAN ANGKAT 2 SUPERSCRIPT -->
+        <!-- JUDUL UTAMA -->
         <section id="beranda" class="hero-section">
             <h1 class="hero-title">TJKT<sup class="sup-badge">wo</sup> Archive: Website Dokumentasi Perjalanan Tiga Tahun Kelas X, XI, dan XII</h1>
             <p class="hero-subtitle">Mengabadikan Setiap Momen, Pembelajaran, dan Kenangan Selama di TJKT</p>
@@ -366,20 +371,39 @@
             </ul>
         </section>
 
-        <!-- KONTAK PEMBUAT (SAYA) -->
+        <!-- KONTAK PEMBUAT & TOMBOL SOSMED -->
         <section id="kontak" class="contact-section">
             <h2>Kontak Pembuat Website</h2>
             <div class="contact-card">
-                <div class="contact-info">
-                    <p><strong>Nama Pembuat:</strong> Risma Juni Alisa</p>
-                    <p><strong>Kelas / Jurusan:</strong> XII TJKT 2</p>
-                    <p><strong>Peran:</strong> Web Developer & Admin Dokumentasi</p>
-                    <p><strong>Email:</strong> rismaalisa84@gmail.com</p>
+                
+                <!-- TATA LETAK ATAS: BIODATA & FOTO BUNDAR -->
+                <div class="contact-top">
+                    <div class="contact-info">
+                        <p><strong>Nama Pembuat:</strong> Risma Juni Alisa</p>
+                        <p><strong>Kelas / Jurusan:</strong> XII TJKT 2</p>
+                        <p><strong>Peran:</strong> Web Developer & Admin Dokumentasi</p>
+                        <p><strong>Email:</strong> rismaalisa84@gmail.com</p>
+                    </div>
+                    
+                    <!-- FOTO BUNDAR TERPISAH DI ATAS GARIS -->
+                    <div class="contact-avatar-wrapper">
+                        <img src="risma.jpg.jpeg" alt="Foto Pembuat Website" class="contact-avatar">
+                    </div>
                 </div>
-                <!-- FOTO PROFIL KECIL DI SEBELAH KANAN -->
-                <div class="contact-avatar-wrapper">
-                    <img src="alisa.jpg.jpeg" alt="Foto Pembuat Website - Risma Juni Alisa" class="contact-avatar">
+                
+                <!-- TATA LETAK BAWAH: MEDIA SOSIAL DI BAWAH GARIS PUTUS-PUTUS -->
+                <div class="social-section">
+                    <p class="social-title">Media Sosial Kelas XII TJKT 2:</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/tjktwoo_?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==" target="_blank" class="social-btn instagram">
+                            <i class="fa-brands fa-instagram"></i> Instagram
+                        </a>
+                        <a href="https://www.tiktok.com/@tjktwo27?is_from_webapp=1&sender_device=pc" target="_blank" class="social-btn tiktok">
+                            <i class="fa-brands fa-tiktok"></i> TikTok
+                        </a>
+                    </div>
                 </div>
+
             </div>
         </section>
 
@@ -390,9 +414,8 @@
         <p>&copy; 2026 TJKT Archive. All Rights Reserved.</p>
     </footer>
 
-    <!-- SCRIPT UNTUK MEMUTAR FOTO LATAR BELAKANG OTOMATIS -->
+    <!-- SCRIPT SLIDESHOW -->
     <script>
-        // DAFTAR FOTO YANG AKAN BERGANTI DI BACKGROUND
         const images = [
             'foto1.jpg.jpeg',
             'foto2.jpg.jpeg',
@@ -411,10 +434,7 @@
             currentIndex = (currentIndex + 1) % images.length;
         }
 
-        // Tampilkan gambar pertama secara langsung
         changeBackground();
-
-        // Ganti gambar latar belakang setiap 4000 milidetik (4 detik)
         setInterval(changeBackground, 4000);
     </script>
 
