@@ -7,6 +7,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome untuk Ikon Kaca Pembesar -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
@@ -77,7 +79,7 @@
         /* --- HEADER FOTO BERSAMA --- */
         .header-title {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             background-image: linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.75)), url('foto8.1.jpg.jpeg');
             background-size: cover;
             background-position: center;
@@ -97,6 +99,43 @@
             color: #e2e8f0; 
             font-size: 1rem; 
             text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+        }
+
+        /* --- STYLING KOLOM PENCARIAN (SEARCH BAR) --- */
+        .search-container {
+            max-width: 500px;
+            margin: 0 auto 35px auto;
+            position: relative;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 20px 12px 48px;
+            border-radius: 30px;
+            border: 2px solid #bae6fd;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            font-size: 0.95rem;
+            color: #0f172a;
+            outline: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #38bdf8;
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.25);
+            background: #ffffff;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #0284c7;
+            font-size: 1.05rem;
         }
 
         /* --- GRID ANGGOTA (2 KOLOM BERDERET) --- */
@@ -121,14 +160,6 @@
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* EFEK HOVER KARTU */
-        .member-card:hover {
-            transform: translateY(-8px);
-            background: linear-gradient(135deg, rgba(186, 230, 253, 0.98) 0%, rgba(233, 213, 255, 0.98) 100%);
-            border-color: #38bdf8;
-            box-shadow: 0 18px 35px rgba(56, 189, 248, 0.3);
-        }
-
         /* BINGKAI FOTO 5:7 DENGAN LATAR PASTEL MINT */
         .member-img-wrapper {
             width: 100%;
@@ -149,10 +180,6 @@
             object-fit: cover;
             object-position: top center;
             transition: transform 0.4s ease;
-        }
-
-        .member-card:hover .member-img {
-            transform: scale(1.05);
         }
 
         /* KOTAK NAMA */
@@ -201,86 +228,59 @@
             .header-title h1 { font-size: 1.7rem; }
         }
 
-        /* =========================================================
-   KODE ANIMASI KHUSUS UNTUK ANGGOTA.HTML
-   ========================================================= */
+        /* --- ANIMASI --- */
+        @keyframes floatGlow {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+            50% { transform: translate(35px, 45px) scale(1.12); opacity: 0.75; }
+            100% { transform: translate(-25px, 25px) scale(0.95); opacity: 0.55; }
+        }
 
-/* 1. Animasi Cahaya Latar Belakang Melayang & Bernapas */
-@keyframes floatGlow {
-    0% {
-        transform: translate(0, 0) scale(1);
-        opacity: 0.5;
-    }
-    50% {
-        transform: translate(35px, 45px) scale(1.12);
-        opacity: 0.75;
-    }
-    100% {
-        transform: translate(-25px, 25px) scale(0.95);
-        opacity: 0.55;
-    }
-}
+        body::before, body::after {
+            animation: floatGlow 10s ease-in-out infinite alternate !important;
+        }
 
-/* Penerapan Animasi pada Cahaya Background */
-body::before, body::after {
-    animation: floatGlow 10s ease-in-out infinite alternate !important;
-}
+        body::after {
+            animation-delay: -5s !important;
+        }
 
-body::after {
-    animation-delay: -5s !important; /* Jeda animasi agar gerakan tidak berbarengan */
-}
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(35px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
 
-/* 2. Animasi Muncul Terangkat dari Bawah (Fade In Up) */
-@keyframes fadeInUp {
-    0% {
-        opacity: 0;
-        transform: translateY(35px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+        .header-title {
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
 
-/* Penerapan Animasi Muncul pada Header & Kartu Anggota */
-.header-title {
-    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
+        .member-card {
+            animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                        box-shadow 0.4s ease, 
+                        background 0.4s ease, 
+                        border-color 0.4s ease !important;
+        }
 
-.member-card {
-    animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
-                box-shadow 0.4s ease, 
-                background 0.4s ease, 
-                border-color 0.4s ease !important;
-}
+        .member-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(56, 189, 248, 0.35);
+        }
 
-/* 3. Animasi Interaktif Saat Kursor Menempel (Hover Effects) */
+        .member-img {
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        }
 
-/* Kartu Terangkat Membal */
-.member-card:hover {
-    transform: translateY(-12px) scale(1.02);
-    box-shadow: 0 20px 40px rgba(56, 189, 248, 0.35);
-}
+        .member-card:hover .member-img {
+            transform: scale(1.08);
+        }
 
-/* Foto Zoom In Halus */
-.member-img {
-    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1) !important;
-}
+        .member-name-box {
+            transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+        }
 
-.member-card:hover .member-img {
-    transform: scale(1.08);
-}
-
-/* Kotak Nama Bergeser Naik & Bercahaya */
-.member-name-box {
-    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
-}
-
-.member-card:hover .member-name-box {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
-} 
+        .member-card:hover .member-name-box {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+        } 
     </style>
 </head>
 <body>
@@ -300,6 +300,12 @@ body::after {
         <div class="header-title">
             <h1>DAFTAR ANGGOTA KELAS</h1>
             <p>Mengenal seluruh siswa dan profil keluarga besar TJKT</p>
+        </div>
+
+        <!-- KOLOM PENCARIAN (SEARCH BAR) -->
+        <div class="search-container">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="searchInput" class="search-input" placeholder="Cari nama anggota kelas..." onkeyup="searchMember()">
         </div>
 
         <!-- GRID 2 KOLOM ANGGOTA KELAS -->
@@ -340,11 +346,11 @@ body::after {
                     Alvinza Ghany Adnanirwan
                 </div>
                 <div class="member-info-box">
-                  Klaten, 18 Desember 2008
+                    Klaten, 18 Desember 2008
                 </div>
             </div>
 
-             <div class="member-card">
+            <div class="member-card">
                 <div class="member-img-wrapper">
                     <img src="yoga.jpg.jpeg" alt="Andika Yoga Pratama" class="member-img">
                 </div>
@@ -370,7 +376,7 @@ body::after {
 
             <div class="member-card">
                 <div class="member-img-wrapper">
-                    <img src="aourel.jpg.jpeg" alt="Andika Yoga Pratama" class="member-img">
+                    <img src="aourel.jpg.jpeg" alt="Aourel Nur azhura" class="member-img">
                 </div>
                 <div class="member-name-box">
                     Aourel Nur azhura
@@ -380,7 +386,7 @@ body::after {
                 </div>
             </div>
 
-             <div class="member-card">
+            <div class="member-card">
                 <div class="member-img-wrapper">
                     <img src="avril.jpg.jpeg" alt="Avrilia Putri Sabila" class="member-img">
                 </div>
@@ -394,7 +400,7 @@ body::after {
 
             <div class="member-card">
                 <div class="member-img-wrapper">
-                    <img src="ayu.jpg.jpeg" alt="Ayu Nur Hidayati" class="member-img">
+                    <img src="ayu.jpg.jpeg" alt="Ayu Nur Hidayat" class="member-img">
                 </div>
                 <div class="member-name-box">
                     Ayu Nur Hidayat
@@ -416,19 +422,19 @@ body::after {
                 </div>
             </div>
 
-             <div class="member-card">
+            <div class="member-card">
                 <div class="member-img-wrapper">
-                    <img src="cyril.jpg.jpeg" alt=" Cyril Dwi Noviyanto" class="member-img">
+                    <img src="cyril.jpg.jpeg" alt="Cyril Dwi Noviyanto" class="member-img">
                 </div>
                 <div class="member-name-box">
-                     Cyril Dwi Noviyanto 
+                    Cyril Dwi Noviyanto 
                 </div>
                 <div class="member-info-box">
                     Klaten, 5 November 2008
                 </div>
             </div>
 
-             <div class="member-card">
+            <div class="member-card">
                 <div class="member-img-wrapper">
                     <img src="zahro.jpg.jpeg" alt="Fatimah Zahro" class="member-img">
                 </div>
@@ -442,7 +448,7 @@ body::after {
 
             <div class="member-card">
                 <div class="member-img-wrapper">
-                    <img src="ardian.jpg.jpeg" alt="Fauzan Ardiansyah" class="member-img">
+                    <img src="ardian.jpg.jpeg" alt="Fauzan Ardian" class="member-img">
                 </div>
                 <div class="member-name-box">
                     Fauzan Ardian
@@ -478,7 +484,7 @@ body::after {
 
             <div class="member-card">
                 <div class="member-img-wrapper">
-                    <img src="nana.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                    <img src="nana.jpg.jpeg" alt="Isnaini Wahyu Nurjanah" class="member-img">
                 </div>
                 <div class="member-name-box">
                     Isnaini Wahyu Nurjanah
@@ -490,7 +496,7 @@ body::after {
 
             <div class="member-card">
                 <div class="member-img-wrapper">
-                    <img src="irfan.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                    <img src="irfan.jpg.jpeg" alt="Irfan Agung Pratama" class="member-img">
                 </div>
                 <div class="member-name-box">
                     Irfan Agung Pratama
@@ -502,7 +508,7 @@ body::after {
 
             <div class="member-card">
                 <div class="member-img-wrapper">
-                    <img src="julia.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                    <img src="julia.jpg.jpeg" alt="Julia Kurnia Wati" class="member-img">
                 </div>
                 <div class="member-name-box">
                     Julia Kurnia Wati 
@@ -514,7 +520,7 @@ body::after {
 
             <div class="member-card">
                 <div class="member-img-wrapper">
-                    <img src="nathan.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                    <img src="nathan.jpg.jpeg" alt="Kenathan Dzaky" class="member-img">
                 </div>
                 <div class="member-name-box">
                     Kenathan Dzaky 
@@ -526,7 +532,7 @@ body::after {
 
             <div class="member-card">
                 <div class="member-img-wrapper">
-                    <img src="kevin.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                    <img src="kevin.jpg.jpeg" alt="Kevin Zulfikar Aqib Syaifudin" class="member-img">
                 </div>
                 <div class="member-name-box">
                     Kevin Zulfikar Aqib Syaifudin  
@@ -538,7 +544,7 @@ body::after {
 
             <div class="member-card">
                 <div class="member-img-wrapper">
-                    <img src="sasa.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                    <img src="sasa.jpg.jpeg" alt="Khairunnisa Ramadhani" class="member-img">
                 </div>
                 <div class="member-name-box">
                     Khairunnisa Ramadhani  
@@ -550,7 +556,7 @@ body::after {
 
             <div class="member-card">
                 <div class="member-img-wrapper">
-                    <img src="khansa.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                    <img src="khansa.jpg.jpeg" alt="Khansa Nuza Maritza" class="member-img">
                 </div>
                 <div class="member-name-box">
                     Khansa Nuza Maritza  
@@ -562,7 +568,7 @@ body::after {
 
             <div class="member-card">
                 <div class="member-img-wrapper">
-                    <img src="lintang.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                    <img src="lintang.jpg.jpeg" alt="Lintang Dea Elsaputri" class="member-img">
                 </div>
                 <div class="member-name-box">
                     Lintang Dea Elsaputri  
@@ -572,10 +578,9 @@ body::after {
                 </div>
             </div>
 
-
             <div class="member-card">
                 <div class="member-img-wrapper">
-                    <img src="marlena.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                    <img src="marlena.jpg.jpeg" alt="Marlena Eka Nuraini" class="member-img">
                 </div>
                 <div class="member-name-box">
                     Marlena Eka Nuraini 
@@ -587,7 +592,7 @@ body::after {
 
             <div class="member-card">
                 <div class="member-img-wrapper">
-                    <img src="jojo.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                    <img src="jojo.jpg.jpeg" alt="Muh. Satrihatmojo" class="member-img">
                 </div>
                 <div class="member-name-box">
                     Muh. Satrihatmojo  
@@ -599,7 +604,7 @@ body::after {
 
             <div class="member-card">
                 <div class="member-img-wrapper">
-                    <img src="muklis.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                    <img src="muklis.jpg.jpeg" alt="Muklis Drajat Wiyoto" class="member-img">
                 </div>
                 <div class="member-name-box">
                     Muklis Drajat Wiyoto 
@@ -611,7 +616,7 @@ body::after {
 
             <div class="member-card">
                 <div class="member-img-wrapper">
-                    <img src="nabila.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                    <img src="nabila.jpg.jpeg" alt="Nabila Alya Mukhbita Firni" class="member-img">
                 </div>
                 <div class="member-name-box">
                     Nabila Alya Mukhbita Firni
@@ -623,7 +628,7 @@ body::after {
 
             <div class="member-card">
                 <div class="member-img-wrapper">
-                    <img src="dipa.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                    <img src="dipa.jpg.jpeg" alt="Nadhifah Ramadhani" class="member-img">
                 </div>
                 <div class="member-name-box">
                     Nadhifah Ramadhani
@@ -635,7 +640,7 @@ body::after {
 
             <div class="member-card">
                 <div class="member-img-wrapper">
-                    <img src="tania.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                    <img src="tania.jpg.jpeg" alt="Novitania Ayudya Permata" class="member-img">
                 </div>
                 <div class="member-name-box">
                     Novitania Ayudya Permata
@@ -647,7 +652,7 @@ body::after {
 
             <div class="member-card">
                 <div class="member-img-wrapper">
-                    <img src="nurul.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                    <img src="nurul.jpg.jpeg" alt="Nurul Azizah Handayani" class="member-img">
                 </div>
                 <div class="member-name-box">
                     Nurul Azizah Handayani
@@ -659,7 +664,7 @@ body::after {
 
             <div class="member-card">
                 <div class="member-img-wrapper">
-                    <img src="risma.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                    <img src="risma.jpg.jpeg" alt="Risma Juni Alisa" class="member-img">
                 </div>
                 <div class="member-name-box">
                     Risma Juni Alisa
@@ -671,7 +676,7 @@ body::after {
 
             <div class="member-card">
                 <div class="member-img-wrapper">
-                    <img src="rizka.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                    <img src="rizka.jpg.jpeg" alt="Rizka Alfiani Putri" class="member-img">
                 </div>
                 <div class="member-name-box">
                     Rizka Alfiani Putri
@@ -683,31 +688,7 @@ body::after {
 
             <div class="member-card">
                 <div class="member-img-wrapper">
-                    <img src="rizka.jpg.jpeg" alt="Indah Maulidia" class="member-img">
-                </div>
-                <div class="member-name-box">
-                    Rizka Alfiani Putri.
-                </div>
-                <div class="member-info-box">
-                    Klaten, 20 Juni 2009
-                </div>
-            </div>
-
-            <div class="member-card">
-                <div class="member-img-wrapper">
-                    <img src="rizka.jpg.jpeg" alt="Indah Maulidia" class="member-img">
-                </div>
-                <div class="member-name-box">
-                    Rizka Alfiani Putri.
-                </div>
-                <div class="member-info-box">
-                    Klaten, 20 Juni 2009
-                </div>
-            </div>
-
-            <div class="member-card">
-                <div class="member-img-wrapper">
-                    <img src="via.jpg.jpeg" alt="Indah Maulidia" class="member-img">
+                    <img src="via.jpg.jpeg" alt="Vivia Eva Cahaya" class="member-img">
                 </div>
                 <div class="member-name-box">
                     Vivia Eva Cahaya
@@ -717,12 +698,6 @@ body::after {
                 </div>
             </div>
 
-
-               
-
-
-            <!-- Tambahkan blok <div class="member-card"> ... </div> berikutnya sampai siswa ke-34 -->
-
         </div>
 
     </div>
@@ -730,6 +705,26 @@ body::after {
     <footer>
         <p>&copy; 2026 TJKT Archive. All Rights Reserved.</p>
     </footer>
+
+    <!-- SCRIPT PENCARIAN ANGGOTA KELAS -->
+    <script>
+        function searchMember() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.querySelectorAll('.member-card');
+
+            cards.forEach(card => {
+                let nameBox = card.querySelector('.member-name-box');
+                if (nameBox) {
+                    let nameText = nameBox.textContent.toLowerCase();
+                    if (nameText.includes(input)) {
+                        card.style.display = "";
+                    } else {
+                        card.style.display = "none";
+                    }
+                }
+            });
+        }
+    </script>
 
 </body>
 </html>
