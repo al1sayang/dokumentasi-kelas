@@ -4,9 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dokumentasi Kelas XI - TJKT Archive</title>
+
+    <!-- SCRIPT TEMA OTOMATIS -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                document.documentElement.classList.add('light-mode');
+            }
+        })();
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
@@ -17,6 +29,7 @@
             color: #1e293b; 
             line-height: 1.6;
             min-height: 100vh;
+            transition: background 0.4s ease, color 0.4s ease;
         }
 
         /* --- NAVIGASI MODERN --- */
@@ -28,10 +41,11 @@
             align-items: center;
             position: sticky; top: 0; z-index: 1000;
             box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            transition: background-color 0.4s ease;
         }
         .logo { color: #ffffff; font-weight: 700; font-size: 1.3rem; letter-spacing: 0.5px; }
         .logo span { color: #3b82f6; }
-        .nav-links { list-style: none; display: flex; gap: 24px; }
+        .nav-links { list-style: none; display: flex; align-items: center; gap: 24px; }
         .nav-links a { 
             color: #94a3b8; 
             text-decoration: none; 
@@ -40,6 +54,27 @@
             transition: all 0.3s ease;
         }
         .nav-links a:hover, .nav-links a.active { color: #34d399; }
+
+        /* STYLING TOMBOL SWITCH TEMA */
+        .theme-toggle-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #f1f5f9;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle-btn:hover {
+            background: #3b82f6;
+            color: #ffffff;
+            transform: scale(1.08);
+        }
 
         .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
         
@@ -122,6 +157,7 @@
             height: 220px;
             overflow: hidden;
             background-color: #e2e8f0;
+            cursor: pointer;
         }
 
         .card-img {
@@ -155,6 +191,58 @@
         .card-body h3 { font-size: 1.1rem; color: #065f46; margin-bottom: 8px; font-weight: 600; }
         .card-body p { font-size: 0.88rem; color: #334155; line-height: 1.5; }
 
+        /* --- LIGHTBOX (MODAL POPUP FOTO) --- */
+        .lightbox-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.88);
+            backdrop-filter: blur(12px);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .lightbox-img {
+            max-width: 92%;
+            max-height: 85vh;
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            border: 3px solid rgba(255, 255, 255, 0.25);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .lightbox-overlay.active .lightbox-img {
+            transform: scale(1);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 25px;
+            right: 30px;
+            color: #ffffff;
+            font-size: 2.2rem;
+            cursor: pointer;
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .lightbox-close:hover {
+            color: #38bdf8;
+            transform: scale(1.2);
+        }
+
         /* --- FOOTER --- */
         footer { 
             text-align: center; 
@@ -167,6 +255,10 @@
 
         /* Responsive Mobile */
         @media (max-width: 640px) {
+            nav { padding: 12px 4%; }
+            .nav-links { gap: 10px; }
+            .nav-links a { font-size: 0.8rem; }
+            .theme-toggle-btn { padding: 4px 8px; font-size: 0.85rem; }
             .gallery-grid { grid-template-columns: 1fr; }
             .header-title h1 { font-size: 1.5rem; }
         }
@@ -175,13 +267,19 @@
 <body>
 
     <nav>
-    <div class="logo">TJKT <span>ARCHIVE</span></div>
-    <ul class="nav-links">
-        <li><a href="index.html">Beranda</a></li>
-        <li><a href="kegiatan.html">Informasi Kegiatan</a></li>
-        <li><a href="anggota.html">Anggota</a></li>
-    </ul>
-</nav>
+        <div class="logo">TJKT <span>ARCHIVE</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="kegiatan.html" class="active">Informasi Kegiatan</a></li>
+            <li><a href="anggota.html">Anggota</a></li>
+            <!-- TOMBOL SWITCH DARK / LIGHT MODE -->
+            <li>
+                <button id="themeToggle" class="theme-toggle-btn" onclick="toggleTheme()" title="Ubah Mode Tampilan">
+                    <i class="fa-solid fa-moon" id="themeIcon"></i>
+                </button>
+            </li>
+        </ul>
+    </nav>
 
     <div class="container">
         <a href="kegiatan.html" class="btn-back">← Kembali ke Pilihan Kelas</a>
@@ -195,7 +293,7 @@
             
             <!-- FOTO 1 -->
             <div class="gallery-card">
-                <div class="card-img-wrapper">
+                <div class="card-img-wrapper" onclick="openLightbox(this)">
                     <img src="foto1.1.jpg.jpeg" alt="Belajar di Luar Kelas" class="card-img">
                     <span class="card-badge">Dokumentasi #01</span>
                 </div>
@@ -207,7 +305,7 @@
 
             <!-- FOTO 2 -->
             <div class="gallery-card">
-                <div class="card-img-wrapper">
+                <div class="card-img-wrapper" onclick="openLightbox(this)">
                     <img src="foto2.1.jpg.jpeg" alt="Aksi Peduli Lingkungan Sekolah" class="card-img">
                     <span class="card-badge">Dokumentasi #02</span>
                 </div>
@@ -219,7 +317,7 @@
 
             <!-- FOTO 3 -->
             <div class="gallery-card">
-                <div class="card-img-wrapper">
+                <div class="card-img-wrapper" onclick="openLightbox(this)">
                     <img src="foto3.1.jpg.jpeg" alt="Puncak Kemeriahan HUT Sekolah" class="card-img">
                     <span class="card-badge">Dokumentasi #03</span>
                 </div>
@@ -231,7 +329,7 @@
 
             <!-- FOTO 4 -->
             <div class="gallery-card">
-                <div class="card-img-wrapper">
+                <div class="card-img-wrapper" onclick="openLightbox(this)">
                     <img src="foto4.1.jpg.jpeg" alt="Semangat Hari Olahraga Nasional" class="card-img">
                     <span class="card-badge">Dokumentasi #04</span>
                 </div>
@@ -243,7 +341,7 @@
 
             <!-- FOTO 5 -->
             <div class="gallery-card">
-                <div class="card-img-wrapper">
+                <div class="card-img-wrapper" onclick="openLightbox(this)">
                     <img src="foto5.1.jpg.jpeg" alt="Kekompakan Tim Classmeet" class="card-img">
                     <span class="card-badge">Dokumentasi #05</span>
                 </div>
@@ -255,7 +353,7 @@
 
             <!-- FOTO 6 -->
             <div class="gallery-card">
-                <div class="card-img-wrapper">
+                <div class="card-img-wrapper" onclick="openLightbox(this)">
                     <img src="foto6.1.jpg.jpeg" alt="Sesi Saling Berbagi Bersama Guru Tamu" class="card-img">
                     <span class="card-badge">Dokumentasi #06</span>
                 </div>
@@ -267,7 +365,7 @@
 
             <!-- FOTO 7 -->
             <div class="gallery-card">
-                <div class="card-img-wrapper">
+                <div class="card-img-wrapper" onclick="openLightbox(this)">
                     <img src="foto7.1.jpgjpeg.jpeg" alt="Upacara & Momen Penerimaan Rapot" class="card-img">
                     <span class="card-badge">Dokumentasi #07</span>
                 </div>
@@ -279,7 +377,7 @@
 
             <!-- FOTO 8 -->
             <div class="gallery-card">
-                <div class="card-img-wrapper">
+                <div class="card-img-wrapper" onclick="openLightbox(this)">
                     <img src="foto8.1.jpg.jpeg" alt="Hangatnya Buka Puasa Bersama" class="card-img">
                     <span class="card-badge">Dokumentasi #08</span>
                 </div>
@@ -291,7 +389,7 @@
 
             <!-- FOTO 9 -->
             <div class="gallery-card">
-                <div class="card-img-wrapper">
+                <div class="card-img-wrapper" onclick="openLightbox(this)">
                     <img src="foto9.1.jpg.jpeg" alt="Momen Haru Perpisahan Kakak PPG" class="card-img">
                     <span class="card-badge">Dokumentasi #09</span>
                 </div>
@@ -303,7 +401,7 @@
 
             <!-- FOTO 10 -->
             <div class="gallery-card">
-                <div class="card-img-wrapper">
+                <div class="card-img-wrapper" onclick="openLightbox(this)">
                     <img src="foto10.1.jpg.jpeg" alt="Peringatan Hari Pendidikan Nasional" class="card-img">
                     <span class="card-badge">Dokumentasi #10</span>
                 </div>
@@ -315,7 +413,7 @@
 
             <!-- FOTO 11 -->
             <div class="gallery-card">
-                <div class="card-img-wrapper">
+                <div class="card-img-wrapper" onclick="openLightbox(this)">
                     <img src="foto11.1.jpg.jpeg" alt="Pentas Seni & Projek Drama" class="card-img">
                     <span class="card-badge">Dokumentasi #11</span>
                 </div>
@@ -327,7 +425,7 @@
 
             <!-- FOTO 12 -->
             <div class="gallery-card">
-                <div class="card-img-wrapper">
+                <div class="card-img-wrapper" onclick="openLightbox(this)">
                     <img src="foto12.1.jpg.jpeg" alt="Acara Bakar-Bakar Akhir Semester" class="card-img">
                     <span class="card-badge">Dokumentasi #12</span>
                 </div>
@@ -340,9 +438,81 @@
         </div>
     </div>
 
+    <!-- ELEMEN POPUP LIGHTBOX UNTUK ZOOM FOTO -->
+    <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close">&times;</span>
+        <img src="" alt="Foto Besar Kegiatan" class="lightbox-img" id="lightboxImg">
+    </div>
+
     <footer>
         <p>&copy; 2026 TJKT Archive. All Rights Reserved.</p>
     </footer>
+
+    <!-- SCRIPT LIGHTBOX & SWITCH THEME -->
+    <script>
+        // Script Lightbox / Pop-Up Zoom Foto
+        function openLightbox(element) {
+            const img = element.querySelector('img');
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            
+            if (img && lightbox && lightboxImg) {
+                lightboxImg.src = img.src;
+                lightbox.classList.add('active');
+            }
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            if (lightbox) {
+                lightbox.classList.remove('active');
+            }
+        }
+
+        // Script Switch Dark / Light Mode Permanen
+        function toggleTheme() {
+            const html = document.documentElement;
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            
+            html.classList.toggle('light-mode');
+            body.classList.toggle('light-mode');
+
+            if (html.classList.contains('light-mode')) {
+                if (themeIcon) {
+                    themeIcon.className = 'fa-solid fa-sun';
+                    themeIcon.style.color = '#f59e0b';
+                }
+                localStorage.setItem('theme', 'light');
+            } else {
+                if (themeIcon) {
+                    themeIcon.className = 'fa-solid fa-moon';
+                    themeIcon.style.color = '#f1f5f9';
+                }
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Sinkronisasi Ikon Setelah Halaman Selesai Dimuat
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            const themeIcon = document.getElementById('themeIcon');
+
+            if (savedTheme === 'light') {
+                document.documentElement.classList.add('light-mode');
+                document.body.classList.add('light-mode');
+                if (themeIcon) {
+                    themeIcon.className = 'fa-solid fa-sun';
+                    themeIcon.style.color = '#f59e0b';
+                }
+            } else {
+                if (themeIcon) {
+                    themeIcon.className = 'fa-solid fa-moon';
+                    themeIcon.style.color = '#f1f5f9';
+                }
+            }
+        });
+    </script>
 
 </body>
 </html>
