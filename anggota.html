@@ -339,6 +339,27 @@
 
         /* Responsive Mobile (Tampilan HP Menjadi 1 Kolom) */
         @media (max-width: 640px) {
+            nav {
+                padding: 12px 4%;
+            }
+
+            .logo {
+                font-size: 1.05rem;
+            }
+
+            .nav-links {
+                gap: 10px;
+            }
+
+            .nav-links a {
+                font-size: 0.8rem;
+            }
+
+            .theme-toggle-btn {
+                padding: 4px 8px;
+                font-size: 0.85rem;
+            }
+
             .member-grid { grid-template-columns: 1fr; }
             .header-title { padding: 50px 15px; }
             .header-title h1 { font-size: 1.7rem; }
@@ -401,6 +422,7 @@
 </head>
 <body>
 
+    <!-- MENU ATAS -->
     <nav>
         <div class="logo">TJKT <span>ARCHIVE</span></div>
         <ul class="nav-links">
