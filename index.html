@@ -4,6 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TJKT Archive - Dokumentasi Kegiatan Kelas</title>
+
+    <!-- SCRIPT TEMA OTOMATIS (MEMASTIKAN TEMA TERAPLIKASI SEBELUM HALAMAN DILOAD) -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                document.documentElement.classList.add('light-mode');
+            }
+        })();
+    </script>
+
     <!-- Import Google Fonts & Font Awesome (Untuk Ikon Sosmed & Theme Toggle) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -334,6 +345,11 @@
             background: #000000;
         }
 
+        /* STYLING TOMBOL SPOTIFY */
+        .social-btn.spotify {
+            background: #1db954;
+        }
+
         .social-btn:hover {
             transform: translateY(-3px) scale(1.03);
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
@@ -354,64 +370,82 @@
         /* =========================================================
            TEMA LIGHT MODE (TAMPILAN TERANG)
            ========================================================= */
-        body.light-mode {
+        html.light-mode body, body.light-mode {
             background-color: #f1f5f9;
             color: #0f172a;
         }
 
-        body.light-mode .bg-slideshow {
+        html.light-mode .bg-slideshow, body.light-mode .bg-slideshow {
             filter: blur(8px) brightness(0.95);
         }
 
-        body.light-mode .bg-overlay {
+        html.light-mode .bg-overlay, body.light-mode .bg-overlay {
             background: rgba(255, 255, 255, 0.4);
         }
 
-        body.light-mode nav {
+        html.light-mode nav, body.light-mode nav {
             background-color: rgba(255, 255, 255, 0.92);
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         }
 
-        body.light-mode .logo {
+        html.light-mode .logo, body.light-mode .logo {
             color: #0f172a;
         }
 
-        body.light-mode .nav-links a {
+        html.light-mode .nav-links a, body.light-mode .nav-links a {
             color: #475569;
         }
 
+        html.light-mode .nav-links a:hover, 
+        html.light-mode .nav-links a.active,
         body.light-mode .nav-links a:hover, 
         body.light-mode .nav-links a.active {
             color: #2563eb;
         }
 
-        body.light-mode .theme-toggle-btn {
+        html.light-mode .theme-toggle-btn, body.light-mode .theme-toggle-btn {
             background: rgba(15, 23, 42, 0.08);
             border: 1px solid rgba(15, 23, 42, 0.2);
             color: #0f172a;
         }
 
-        body.light-mode .purpose-section {
+        html.light-mode .purpose-section, body.light-mode .purpose-section {
             background: rgba(255, 255, 255, 0.95);
             border-color: rgba(186, 230, 253, 0.8);
         }
 
-        body.light-mode .contact-section {
+        html.light-mode .contact-section, body.light-mode .contact-section {
             background: rgba(255, 255, 255, 0.95);
             border-color: rgba(233, 213, 255, 0.8);
         }
 
-        body.light-mode .contact-card {
+        html.light-mode .contact-card, body.light-mode .contact-card {
             background: rgba(248, 250, 252, 0.9);
         }
 
-        body.light-mode footer {
+        html.light-mode footer, body.light-mode footer {
             background-color: rgba(255, 255, 255, 0.95);
             color: #64748b;
             border-top: 1px solid rgba(0, 0, 0, 0.08);
         }
 
         @media (max-width: 640px) {
+            nav {
+                padding: 12px 4%;
+            }
+            .logo {
+                font-size: 1.05rem;
+            }
+            .nav-links {
+                gap: 10px;
+            }
+            .nav-links a {
+                font-size: 0.8rem;
+            }
+            .theme-toggle-btn {
+                padding: 4px 8px;
+                font-size: 0.85rem;
+            }
             .hero-title { font-size: 2.2rem; }
             .purpose-section, .contact-section { padding: 22px; }
             .contact-top {
@@ -495,6 +529,10 @@
                         <a href="https://www.tiktok.com/@tjktwo27?is_from_webapp=1&sender_device=pc" target="_blank" class="social-btn tiktok">
                             <i class="fa-brands fa-tiktok"></i> TikTok
                         </a>
+                        <!-- TOMBOL SPOTIFY PLAYLIST KELAS -->
+                        <a href="https://open.spotify.com/playlist/26aSQNE1vl93MD3MtKL0Lq?si=mme4pH2DSI6vhuNi_19aDg" target="_blank" class="social-btn spotify">
+                            <i class="fa-brands fa-spotify"></i> Spotify
+                        </a>
                     </div>
                 </div>
 
@@ -532,34 +570,46 @@
         changeBackground();
         setInterval(changeBackground, 4000);
 
-        // SCRIPT SWITCH DARK / LIGHT MODE
+        // SCRIPT SWITCH DARK / LIGHT MODE PERMANEN
         function toggleTheme() {
+            const html = document.documentElement;
             const body = document.body;
             const themeIcon = document.getElementById('themeIcon');
             
+            html.classList.toggle('light-mode');
             body.classList.toggle('light-mode');
 
-            if (body.classList.contains('light-mode')) {
-                themeIcon.className = 'fa-solid fa-sun';
-                themeIcon.style.color = '#f59e0b';
+            if (html.classList.contains('light-mode')) {
+                if (themeIcon) {
+                    themeIcon.className = 'fa-solid fa-sun';
+                    themeIcon.style.color = '#f59e0b';
+                }
                 localStorage.setItem('theme', 'light');
             } else {
-                themeIcon.className = 'fa-solid fa-moon';
-                themeIcon.style.color = '#f1f5f9';
+                if (themeIcon) {
+                    themeIcon.className = 'fa-solid fa-moon';
+                    themeIcon.style.color = '#f1f5f9';
+                }
                 localStorage.setItem('theme', 'dark');
             }
         }
 
-        // MENJAGA TEMA TERSIMPAN SAAT DISWITCH/REFRESH
+        // SINKRONISASI IKON SETELAH HALAMAN SELESAI DIMUAT
         window.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('theme');
             const themeIcon = document.getElementById('themeIcon');
 
             if (savedTheme === 'light') {
+                document.documentElement.classList.add('light-mode');
                 document.body.classList.add('light-mode');
                 if (themeIcon) {
                     themeIcon.className = 'fa-solid fa-sun';
                     themeIcon.style.color = '#f59e0b';
+                }
+            } else {
+                if (themeIcon) {
+                    themeIcon.className = 'fa-solid fa-moon';
+                    themeIcon.style.color = '#f1f5f9';
                 }
             }
         });
