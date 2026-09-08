@@ -185,6 +185,7 @@
             border-radius: 20px;
             letter-spacing: 0.5px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            pointer-events: none;
         }
 
         .card-body { padding: 22px; text-align: left; flex-grow: 1; }
@@ -308,7 +309,7 @@
             
             <!-- FOTO 1 -->
             <div class="gallery-card">
-                <div class="card-img-wrapper" onclick="openLightbox(this)">
+                <div class="card-img-wrapper">
                     <img src="foto1.jpg.jpeg" alt="Ulang Tahun Wali Kelas" class="card-img">
                     <span class="card-badge">Dokumentasi #01</span>
                 </div>
@@ -320,7 +321,7 @@
 
             <!-- FOTO 2 -->
             <div class="gallery-card">
-                <div class="card-img-wrapper" onclick="openLightbox(this)">
+                <div class="card-img-wrapper">
                     <img src="foto2.jpg.jpeg" alt="Supporter Classmeet" class="card-img">
                     <span class="card-badge">Dokumentasi #02</span>
                 </div>
@@ -332,7 +333,7 @@
 
             <!-- FOTO 3 -->
             <div class="gallery-card">
-                <div class="card-img-wrapper" onclick="openLightbox(this)">
+                <div class="card-img-wrapper">
                     <img src="foto3.jpg.jpeg" alt="HUT Sekolah" class="card-img">
                     <span class="card-badge">Dokumentasi #03</span>
                 </div>
@@ -344,7 +345,7 @@
 
             <!-- FOTO 4 -->
             <div class="gallery-card">
-                <div class="card-img-wrapper" onclick="openLightbox(this)">
+                <div class="card-img-wrapper">
                     <img src="foto4.jpg.jpeg" alt="Bakar Bakar Kelas" class="card-img">
                     <span class="card-badge">Dokumentasi #04</span>
                 </div>
@@ -356,7 +357,7 @@
 
             <!-- FOTO 5 -->
             <div class="gallery-card">
-                <div class="card-img-wrapper" onclick="openLightbox(this)">
+                <div class="card-img-wrapper">
                     <img src="foto6.jpg.jpeg" alt="Foto Bersama Guru Pindah Tugas" class="card-img">
                     <span class="card-badge">Dokumentasi #05</span>
                 </div>
@@ -368,7 +369,7 @@
 
             <!-- FOTO 6 -->
             <div class="gallery-card">
-                <div class="card-img-wrapper" onclick="openLightbox(this)">
+                <div class="card-img-wrapper">
                     <img src="foto5.jpg.jpeg" alt="Bukber Kelas" class="card-img">
                     <span class="card-badge">Dokumentasi #06</span>
                 </div>
@@ -380,7 +381,7 @@
 
             <!-- FOTO 7 (Tengah Bawah) -->
             <div class="gallery-card featured">
-                <div class="card-img-wrapper" onclick="openLightbox(this)">
+                <div class="card-img-wrapper">
                     <img src="foto7.jpg.jpeg" alt="Foto Bersama Guru Purna Tugas" class="card-img">
                     <span class="card-badge">Momen Spesial</span>
                 </div>
@@ -403,9 +404,9 @@
         <p>&copy; 2026 TJKT Archive. All Rights Reserved.</p>
     </footer>
 
-    <!-- SCRIPT LIGHTBOX & SWITCH THEME -->
+    <!-- SCRIPT DENGAN EVENT LISTENER OTOMATIS UNTUK TOUCH/CLICK LENGKAP -->
     <script>
-        // Script Lightbox / Pop-Up Zoom Foto
+        // Fungsi Membuka Lightbox
         function openLightbox(element) {
             const img = element.querySelector('img');
             const lightbox = document.getElementById('lightbox');
@@ -414,17 +415,20 @@
             if (img && lightbox && lightboxImg) {
                 lightboxImg.src = img.src;
                 lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
             }
         }
 
+        // Fungsi Menutup Lightbox
         function closeLightbox() {
             const lightbox = document.getElementById('lightbox');
             if (lightbox) {
                 lightbox.classList.remove('active');
+                document.body.style.overflow = '';
             }
         }
 
-        // Script Switch Dark / Light Mode Permanen
+        // Script Switch Dark / Light Mode
         function toggleTheme() {
             const html = document.documentElement;
             const body = document.body;
@@ -448,7 +452,7 @@
             }
         }
 
-        // Sinkronisasi Ikon Setelah Halaman Selesai Dimuat
+        // Event Listener Otomatis Saat Halaman Selesai Ditinggal/Dimuat
         window.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('theme');
             const themeIcon = document.getElementById('themeIcon');
@@ -466,6 +470,15 @@
                     themeIcon.style.color = '#f1f5f9';
                 }
             }
+
+            // MENGHUBUNGKAN EVENT KLIK/SENTUHAN KE SELURUH FOTO KELAS X
+            const imgWrappers = document.querySelectorAll('.card-img-wrapper');
+            imgWrappers.forEach(wrapper => {
+                // Untuk Klik di Laptop
+                wrapper.addEventListener('click', function(e) {
+                    openLightbox(this);
+                });
+            });
         });
     </script>
 
