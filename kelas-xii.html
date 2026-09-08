@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumentasi Kelas XII - TJKT Archive</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        
+        body { 
+            background: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 50%, #dbeafe 100%); 
+            color: #1e293b; 
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before, body::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.6;
+            pointer-events: none;
+            animation: floatGlow 10s ease-in-out infinite alternate;
+        }
+
+        body::before {
+            width: 380px; height: 380px; background: #a5f3fc; top: -60px; left: -60px;
+        }
+
+        body::after {
+            width: 420px; height: 420px; background: #c084fc; bottom: -60px; right: -60px; animation-delay: -5s;
+        }
+
+        @keyframes floatGlow {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+            50% { transform: translate(35px, 45px) scale(1.12); opacity: 0.75; }
+            100% { transform: translate(-25px, 25px) scale(0.95); opacity: 0.55; }
+        }
+
+        nav {
+            background-color: #0f172a;
+            padding: 16px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .logo { color: #ffffff; font-weight: 700; font-size: 1.3rem; letter-spacing: 0.5px; }
+        .logo span { color: #3b82f6; }
+        .nav-links { list-style: none; display: flex; gap: 24px; }
+        .nav-links a { 
+            color: #94a3b8; 
+            text-decoration: none; 
+            font-weight: 500; 
+            font-size: 0.95rem; 
+            transition: all 0.3s ease;
+        }
+        .nav-links a:hover, .nav-links a.active { color: #60a5fa; }
+
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+
+        .header-title {
+            text-align: center;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #9333ea 100%);
+            padding: 50px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            color: white;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        .header-title h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 8px; }
+        .header-title p { opacity: 0.9; font-size: 1rem; }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .card-kegiatan {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            border: 2px solid #bae6fd;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: all 0.4s ease;
+            animation: fadeInUp 0.7s ease both;
+        }
+
+        .card-kegiatan:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 18px 30px rgba(56, 189, 248, 0.25);
+            border-color: #38bdf8;
+        }
+
+        .img-box {
+            width: 100%;
+            height: 220px;
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .card-kegiatan:hover .img-box img {
+            transform: scale(1.06);
+        }
+
+        .card-kegiatan h3 {
+            color: #1e3a8a;
+            font-size: 1.15rem;
+            margin-bottom: 8px;
+        }
+
+        .card-kegiatan p {
+            color: #475569;
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        footer { 
+            text-align: center; 
+            padding: 25px; 
+            background-color: #0f172a; 
+            color: #94a3b8; 
+            font-size: 0.85rem; 
+            margin-top: 60px; 
+        }
+
+        @media (max-width: 640px) {
+            .gallery-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">TJKT <span>ARCHIVE</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="kegiatan.html" class="active">Informasi Kegiatan</a></li>
+            <li><a href="anggota.html">Anggota</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        
+        <div class="header-title">
+            <h1>DOKUMENTASI KELAS XII</h1>
+            <p>Kumpulan Momen dan Kegiatan Kebersamaan Siswa XII TJKT 2</p>
+        </div>
+
+        <div class="gallery-grid">
+
+            <!-- KEGIATAN 1 -->
+            <div class="card-kegiatan">
+                <div class="img-box">
+                    <img src="xii-ft ijazah.png" alt="Foto Ijazah">
+                </div>
+                <h3>Foto Pembuatan Ijazah</h3>
+                <p>Momen foto bersama dan persiapan kelengkapan administrasi ijazah kelulusan kelas XII.</p>
+            </div>
+
+            <!-- KEGIATAN 2 -->
+            <div class="card-kegiatan">
+                <div class="img-box">
+                    <img src="xii-hari pramuka.png" alt="Hari Pramuka">
+                </div>
+                <h3>Peringatan Hari Pramuka</h3>
+                <p>Kegiatan dan partisipasi siswa dalam peringatan Hari Pramuka bersama keluarga besar sekolah.</p>
+            </div>
+
+            <!-- KEGIATAN 3 -->
+            <div class="card-kegiatan">
+                <div class="img-box">
+                    <img src="xii-hut.png" alt="HUT Sekolah">
+                </div>
+                <h3>Perayaan HUT Sekolah</h3>
+                <p>Keseruan dan kemeriahan kelas XII TJKT 2 dalam memeriahkan hari ulang tahun sekolah.</p>
+            </div>
+
+            <!-- KEGIATAN 4 -->
+            <div class="card-kegiatan">
+                <div class="img-box">
+                    <img src="xii-lomba tumpeng.png" alt="Lomba Tumpeng">
+                </div>
+                <h3>Lomba Menghias Tumpeng</h3>
+                <p>Ajang kekompakan dan kreativitas siswa dalam lomba kreasi menghias tumpeng.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 TJKT Archive. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
