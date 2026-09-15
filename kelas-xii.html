@@ -195,6 +195,16 @@
             font-size: 0.9rem;
         }
 
+        /* FOTO 5 SPECIAL FEATURED DI TENGAH BAWAH */
+        .card-kegiatan.featured {
+            grid-column: span 2;
+            max-width: 600px;
+            justify-self: center;
+            width: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(243, 232, 255, 0.95) 100%);
+            border: 2px solid #c084fc;
+        }
+
         /* --- LIGHTBOX (MODAL POPUP FOTO) --- */
         .lightbox-overlay {
             position: fixed;
@@ -267,6 +277,7 @@
             .nav-links a { font-size: 0.8rem; }
             .theme-toggle-btn { padding: 4px 8px; font-size: 0.85rem; }
             .gallery-grid { grid-template-columns: 1fr; }
+            .card-kegiatan.featured { grid-column: span 1; }
             .header-title h1 { font-size: 1.6rem; }
         }
     </style>
@@ -334,6 +345,15 @@
                 <p>Ajang kekompakan dan kreativitas siswa dalam lomba kreasi menghias tumpeng.</p>
             </div>
 
+            <!-- KEGIATAN 5 (HARI OLAHRAGA NASIONAL) -->
+            <div class="card-kegiatan featured">
+                <div class="img-box" onclick="openLightbox(this)">
+                    <img src="xii-haornas.png" alt="Hari Olahraga Nasional">
+                </div>
+                <h3>🏆 Peringatan HAORNAS & Momen Kejuaraan</h3>
+                <p>Foto bersama merayakan Hari Olahraga Nasional sekaligus penyerahan piala dan sertifikat penghargaan atas prestasi gemilang yang diraih oleh tim kelas XII TJKT 2!</p>
+            </div>
+
         </div>
 
     </div>
@@ -348,7 +368,7 @@
         <p>&copy; 2026 TJKT Archive. All Rights Reserved.</p>
     </footer>
 
-    <!-- SCRIPT LIGHTBOX & SWITCH THEME -->
+    <!-- SCRIPT LIGHTBOX (OPTIMAL UNTUK HP & LAPTOP) & SWITCH THEME -->
     <script>
         // Script Lightbox / Pop-Up Zoom Foto
         function openLightbox(element) {
@@ -359,6 +379,7 @@
             if (img && lightbox && lightboxImg) {
                 lightboxImg.src = img.src;
                 lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Mengunci scroll latar saat pop-up terbuka
             }
         }
 
@@ -366,6 +387,7 @@
             const lightbox = document.getElementById('lightbox');
             if (lightbox) {
                 lightbox.classList.remove('active');
+                document.body.style.overflow = ''; // Mengembalikan scroll
             }
         }
 
@@ -393,7 +415,7 @@
             }
         }
 
-        // Sinkronisasi Ikon Setelah Halaman Selesai Dimuat
+        // Event Listener Otomatis untuk Klik / Sentuhan di HP & Laptop
         window.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('theme');
             const themeIcon = document.getElementById('themeIcon');
@@ -411,6 +433,14 @@
                     themeIcon.style.color = '#f1f5f9';
                 }
             }
+
+            // Memastikan sentuhan jari di HP langsung merespons
+            const imgBoxes = document.querySelectorAll('.img-box');
+            imgBoxes.forEach(box => {
+                box.addEventListener('click', function() {
+                    openLightbox(this);
+                });
+            });
         });
     </script>
 
